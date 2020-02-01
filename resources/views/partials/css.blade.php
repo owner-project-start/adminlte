@@ -26,3 +26,10 @@
 @if(config('sweetalert.animation.enable'))
     <link rel="stylesheet" href="{{ config('sweetalert.animatecss') }}">
 @endif
+
+@toastr_css
+<style>
+    .text-sm .btn-x-sm {
+        font-size: .7rem!important;
+    }
+</style>

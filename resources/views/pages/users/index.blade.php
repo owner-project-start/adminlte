@@ -4,13 +4,16 @@
 
 @section('header')
     <div class="row mb-2">
-        <div class="col-sm-6">
+        <div class="col-md-6 col-sm-6 col-6">
             <h1 class="m-0 text-dark">Users</h1>
         </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
+        <div class="col-md-6 col-sm-6 col-6">
+            <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> User</a>
+                    @can('create-users')
+                        <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary"><i
+                                class="fas fa-plus-circle"></i> User</a>
+                    @endcan
                 </li>
             </ol>
         </div>
@@ -19,7 +22,7 @@
 
 @section('content')
     <div class="table-responsive">
-        <table class="table nowrap table-bordered table-hover w-100" id="users_table">
+        <table class="table table-sm nowrap table-bordered w-100" id="users_table">
             <thead>
             @include('pages.users.partials.field')
             </thead>

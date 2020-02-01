@@ -1,6 +1,8 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <!-- jQuery -->
-<script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+{{--<script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>--}}
+
+@jquery
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('node_modules/jqueryui/jquery-ui.min.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -31,3 +33,5 @@
 <script src="{{ asset('node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 
 <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
+@toastr_js
+@toastr_render

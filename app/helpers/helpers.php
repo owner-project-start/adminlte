@@ -37,9 +37,12 @@ function success_delete($data, $code = 202)
     ]);
 }
 
-function error()
+function error($code = 400)
 {
-
+    return response()->json([
+        'code' => $code,
+        'message' => 'Missing fill',
+    ]);
 }
 
 function error_validate($validate, $code = 400)
@@ -51,11 +54,10 @@ function error_validate($validate, $code = 400)
     ]);
 }
 
-function error_notFound($data, $code = 404)
+function error_notFound($code = 404)
 {
     return response()->json([
         'code' => $code,
         'message' => 'Error, Record not found',
-        'data' => $data
     ]);
 }

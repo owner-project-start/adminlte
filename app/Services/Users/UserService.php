@@ -3,7 +3,7 @@
 namespace App\Services\Users;
 
 use App\Services\BaseService;
-use App\User;
+use App\Models\User;
 
 class UserService extends BaseService
 {

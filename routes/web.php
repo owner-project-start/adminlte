@@ -15,7 +15,7 @@ require __DIR__ . '/Web/auth.php';
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'permission:backend']], function () {
     require __DIR__ . '/Web/dashboard.php';
     Route::group(['prefix' => 'user-managements'], function () {
         require __DIR__ . '/Web/user.php';

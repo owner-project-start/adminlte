@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\BackEnd;
 
+use App\Http\Controllers\Controller;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 
@@ -19,15 +20,21 @@ class ParentController extends Controller
 
     public function store(Request $request)
     {
+        // 1. Check validation
+
+
+
+
+        $this->validate($request, $this->model->rulesToCreate);
         $attributes = $request->all();
         // 2. Try to create the records
-        $createdObject = $this->service->create($attributes);
+        $createdObject = $this->model->create($attributes);
         // 3. If everything is fine, response success to user
         if ($createdObject) {
-            return $this->success($createdObject);
+            return $createdObject;
         }
         // 4. Say sorry as something went wrong.
-        return $this->error();
+        return error_notFound();
     }
 
 
@@ -64,11 +71,6 @@ class ParentController extends Controller
 //    public function create(Request $request)
 //    {
 //        $attributes = $request->all();
-//        // 1. Validate if the attributes are processable
-//        $validator = Validator::make($attributes, $this->model->rulesToCreate);
-//        if ($validator->fails()) {
-//            return $this->unprocessable($validator->messages());
-//        }
 //        // 2. Try to create the records
 //        $createdObject = $this->service->create($attributes);
 //        // 3. If everything is fine, response success to user

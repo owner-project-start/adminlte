@@ -2,35 +2,32 @@
 
 @section('title', 'Dashboard')
 
-@section('content')
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Users</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">
-                            <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> User</a>
-                        </li>
-                    </ol>
-                </div>
-            </div>
+@section('header')
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Roles</h1>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item">
+                    @can('create-roles')
+                        <a href="{{ route('roles.create') }}" class="btn btn-sm btn-primary"><i
+                                class="fas fa-plus-circle"></i> Role</a>
+                    @endcan
+                </li>
+            </ol>
         </div>
     </div>
+@endsection
 
-    <section class="content">
-        <div class="container-fluid">
-            <div class="table-responsive">
-                <table class="table nowrap table-bordered table-hover w-100" id="roles_table">
-                    <thead>
-                    @include('pages.roles.partials.field')
-                    </thead>
-                </table>
-            </div>
-        </div>
-    </section>
+@section('content')
+    <div class="table-responsive">
+        <table class="table table-sm table-hover table-bordered w-100" id="roles_table">
+            <thead>
+            @include('pages.roles.partials.field')
+            </thead>
+        </table>
+    </div>
 @endsection
 
 @push('scripts')
@@ -55,9 +52,18 @@
                 },
                 columns: [
                     {data: 'name'},
+                    {data: 'permissions', name: 'permissions.name'},
                     {data: 'created_at', orderable: false, searchable: false},
                     {data: 'updated_at', orderable: false, searchable: false},
                     {data: 'action', orderable: false, searchable: false}
+                ],
+                columnDefs: [
+                    {
+                        createdCell: function (td) {
+                            $(td).attr('nowrap', true);
+                        },
+                        "targets": [2, 3, 4]
+                    },
                 ]
             });
         });
