@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Dashboard')
+@section('title', 'Users')
 
 @section('header')
     <div class="row mb-2">
@@ -17,7 +17,7 @@
 @endsection
 
 @section('content')
-    <div class="card">
+    <div class="card b-t-green">
         <div class="card-body">
             <form method="POST" action="{{ route('users.store') }}">
                 @csrf

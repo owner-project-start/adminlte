@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Dashboard')
+@section('title', 'Users')
 
 @section('header')
     <div class="row mb-2">
@@ -10,7 +10,7 @@
                 <i class="fas fa-plus-circle"></i> User
             </a>
             @can('delete-users')
-                <a class="btn btn-sm btn-danger" href="{{ route('users.delete', $user->id) }}"><i class="fas fa-trash"></i> Delete</a>
+                <button type="button" data-remote="' . route('users.delete', $user->id) . '" class="btn btn-danger btn-sm" id="delete"><i class="far fa-trash-alt"></i> Delete</button>
             @endcan
         </div>
         <div class="col-md-6 col-sm-6 col-6">
@@ -23,10 +23,11 @@
 @endsection
 
 @section('content')
-    <div class="card">
+    <div class="card b-t-green">
         <div class="card-body">
-            <form method="POST" action="{{ route('users.edit', $user->id) }}">
+            <form method="POST" action="{{ route('users.update', $user->id) }}">
                 @csrf
+                <input type="hidden" name="_method" value="PUT">
                 @include('pages.users.partials.form')
                 <div class="row justify-content-end">
                     <div class="col-md-10 col-sm-9 col-8">

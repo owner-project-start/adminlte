@@ -37,11 +37,11 @@ function success_delete($data, $code = 202)
     ]);
 }
 
-function error($code = 400)
+function error($message = 'Missing fill', $code = 400)
 {
     return response()->json([
         'code' => $code,
-        'message' => 'Missing fill',
+        'message' => $message,
     ]);
 }
 
@@ -60,4 +60,16 @@ function error_notFound($code = 404)
         'code' => $code,
         'message' => 'Error, Record not found',
     ]);
+}
+
+function countUser()
+{
+    $totalUsers = count(\App\User::all());
+    return $totalUsers;
+}
+
+function roleAdmin()
+{
+    $roleAdmin = \Spatie\Permission\Models\Role::where('name', 'administration')->first();
+    return $roleAdmin;
 }

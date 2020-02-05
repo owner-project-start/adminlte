@@ -10,7 +10,6 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticate
 {
     use SoftDeletes, Notifiable, HasRoles;
-    protected $guard_name = 'web';
     protected $table = 'users';
     protected $fillable = [
         'name', 'email', 'password', 'active'
@@ -28,4 +27,12 @@ class User extends Authenticate
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
         'password' => ['required', 'string', 'min:8', 'confirmed'],
     ];
+
+    public function rulesToUpdate($id)
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,'.$id,
+        ];
+    }
 }

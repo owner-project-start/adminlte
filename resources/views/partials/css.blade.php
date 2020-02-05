@@ -28,8 +28,4 @@
 @endif
 
 @toastr_css
-<style>
-    .text-sm .btn-x-sm {
-        font-size: .7rem!important;
-    }
-</style>
+<link rel="stylesheet" href="{{ asset('css/temp.css') }}">

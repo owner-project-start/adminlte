@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
-@section('title', 'Dashboard')
+@section('title', 'Users')
 
 @section('header')
     <div class="row mb-2">
         <div class="col-md-6 col-sm-6 col-6">
-            <h1 class="m-0 text-dark">Users</h1>
+            <h1 class="m-0 text-dark">User Management</h1>
         </div>
         <div class="col-md-6 col-sm-6 col-6">
             <ol class="breadcrumb float-right">
@@ -21,12 +21,16 @@
 @endsection
 
 @section('content')
-    <div class="table-responsive">
-        <table class="table table-sm nowrap table-bordered w-100" id="users_table">
-            <thead>
-            @include('pages.users.partials.field')
-            </thead>
-        </table>
+    <div class="card b-t-green">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-sm table-bordered table-hover w-100" id="users_table">
+                    <thead>
+                    @include('pages.users.partials.field')
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -58,6 +62,14 @@
                     {data: 'created_at', orderable: false, searchable: false},
                     {data: 'updated_at', orderable: false, searchable: false},
                     {data: 'action', orderable: false, searchable: false}
+                ],
+                columnDefs: [
+                    {
+                        createdCell: function (td) {
+                            $(td).attr('nowrap', true);
+                        },
+                        "targets": [5]
+                    },
                 ]
             });
 

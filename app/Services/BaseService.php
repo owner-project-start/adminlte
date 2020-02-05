@@ -94,4 +94,14 @@ class BaseService
     {
 
     }
+
+    public function assignRole()
+    {
+
+    }
+
+    public function givePermission()
+    {
+
+    }
 }

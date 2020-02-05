@@ -38,7 +38,6 @@ class UserController extends ParentController
      */
     public function index()
     {
-        // return to view index page of users
         return view('pages.users.index');
     }
 
@@ -56,7 +55,10 @@ class UserController extends ParentController
                 return '<span class="text-capitalize">' . $user->name . '</span>';
             })
             ->addColumn('roles', function ($user) {
-                return '<span class="badge badge-success text-capitalize">' . $user->roles->pluck('name')->implode('') . '</span>';
+                $roleName = $user->roles->map(function ($role) {
+                    return '<span class="badge badge-success text-capitalize">' . $role->name . '</span>';
+                })->implode(' ');
+                return $roleName;
             })
             ->filterColumn('roles', function ($query, $keyword) {
                 $query->whereRaw("roles like ?", ["%$keyword%"]);
@@ -69,9 +71,6 @@ class UserController extends ParentController
             })
             ->addColumn('action', function ($user) {
                 $action = "";
-                if (auth()->user()->can('view-users')) {
-                    $action = $action . ' <a href="' . route('users.edit', $user->id) . '" class="btn btn-primary btn-sm btn-x-sm"><i class="far fa-eye"></i></a>';
-                }
                 if (auth()->user()->can('edit-users')) {
                     $action = $action . ' <a href="' . route('users.edit', $user->id) . '" class="btn btn-info btn-sm btn-x-sm"><i class="fas fa-pencil-alt"></i></a>';
                 }
@@ -104,19 +103,19 @@ class UserController extends ParentController
     {
         try {
             DB::beginTransaction();
-            $objectCreate = parent::store($request);
-            if ($objectCreate instanceof $this->model) {
+            $createdObject = parent::store($request);
+            if ($createdObject instanceof $this->model) {
                 if (isset($request->roles)) {
                     $roles = $this->role->getByArray('id', $request->roles);
-                    $objectCreate->assignRole($roles);
+                    $createdObject->assignRole($roles);
                 } else {
+                    DB::rollBack();
                     return error();
                 }
                 DB::commit();
-                toastSuccess('Data has been saved successfully!');
+                toastSuccess('Record has been saved successfully!');
                 return redirect()->route('users');
             }
-            toastError('Missing Fill');
             return error_notFound();
         } catch (ValidationException $validate) {
             DB::rollBack();
@@ -136,11 +135,38 @@ class UserController extends ParentController
         return view('pages.users.edit', compact('user', 'roles'));
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse|RedirectResponse
+     * @throws ValidationException
+     */
     public function update(Request $request, $id)
     {
-        return parent::update($request, $id);
+        if ($id) {
+            $attributes = $request->all();
+            $this->validate($request, $this->model->rulesToUpdate($id));
+            $updatedObject = $this->service->updateById($id, $attributes);
+            if ($updatedObject) {
+                if (isset($request->roles)) {
+                    $roles = $this->role->getByArray('id', $request->roles);
+                    $updatedObject->syncRoles($roles);
+                } else {
+                    $updatedObject->syncRoles('');
+                }
+                DB::commit();
+                toastSuccess('Record has been updated successfully!');
+                return redirect()->route('users');
+            }
+            return error('Record not create');
+        }
+        return error("Record id is required");
     }
 
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
     public function delete($id)
     {
         return parent::delete($id);

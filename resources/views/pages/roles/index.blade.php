@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
-@section('title', 'Dashboard')
+@section('title', 'Roles')
 
 @section('header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Roles</h1>
+            <h1 class="m-0 text-dark">Role Managements</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -21,12 +21,16 @@
 @endsection
 
 @section('content')
-    <div class="table-responsive">
-        <table class="table table-sm table-hover table-bordered w-100" id="roles_table">
-            <thead>
-            @include('pages.roles.partials.field')
-            </thead>
-        </table>
+    <div class="card b-t-green">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover table-bordered w-100" id="roles_table">
+                    <thead>
+                    @include('pages.roles.partials.field')
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -38,7 +42,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $('#roles_table').DataTable({
+            const Table = $('#roles_table').DataTable({
                 processing: false,
                 serverSide: true,
                 lengthMenu: [
@@ -52,6 +56,7 @@
                 },
                 columns: [
                     {data: 'name'},
+                    {data: 'code'},
                     {data: 'permissions', name: 'permissions.name'},
                     {data: 'created_at', orderable: false, searchable: false},
                     {data: 'updated_at', orderable: false, searchable: false},
@@ -62,9 +67,44 @@
                         createdCell: function (td) {
                             $(td).attr('nowrap', true);
                         },
-                        "targets": [2, 3, 4]
+                        "targets": [5]
                     },
                 ]
+            });
+
+            $(document).on('click', '#delete', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You will not be able to recover this imaginary file!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, keep it'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: $(this).attr('data-remote'),
+                            success: function (response) {
+                                if (response.code === 202) {
+                                    Table.draw('page');
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Your imaginary file has been deleted.',
+                                        'success'
+                                    );
+                                }
+                            }
+                        })
+                    } else {
+                        Swal.fire(
+                            'Cancelled',
+                            'Your imaginary file is safe :)',
+                            'error'
+                        )
+                    }
+                })
             });
         });
     </script>

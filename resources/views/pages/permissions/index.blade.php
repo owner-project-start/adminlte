@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
-@section('title', 'Dashboard')
+@section('title', 'Permission')
 
 @section('header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Permission</h1>
+            <h1 class="m-0 text-dark">Permission Managements</h1>
         </div>
         <div class="col-md-6 col-sm-6 col-6">
             <ol class="breadcrumb float-right">
@@ -21,13 +21,16 @@
 @endsection
 
 @section('content')
-
-    <div class="table-responsive">
-        <table class="table nowrap table-sm table-bordered table-hover w-100" id="users_table">
-            <thead>
-            @include('pages.permissions.partials.field')
-            </thead>
-        </table>
+    <div class="card b-t-green">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table nowrap table-sm table-bordered table-hover w-100" id="users_table">
+                    <thead>
+                    @include('pages.permissions.partials.field')
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -39,7 +42,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $('#users_table').DataTable({
+            const Table = $('#users_table').DataTable({
                 processing: false,
                 serverSide: true,
                 lengthMenu: [
@@ -53,9 +56,54 @@
                 },
                 columns: [
                     {data: 'name'},
+                    {data: 'code'},
                     {data: 'created_at', orderable: false, searchable: false},
-                    {data: 'updated_at', orderable: false, searchable: false}
+                    {data: 'updated_at', orderable: false, searchable: false},
+                    {data: 'action', orderable: false, searchable: false}
+                ],
+                columnDefs: [
+                    {
+                        createdCell: function (td) {
+                            $(td).attr('nowrap', true);
+                        },
+                        "targets": [4]
+                    },
                 ]
+            });
+
+            $(document).on('click', '#delete', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You will not be able to recover this imaginary file!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, keep it'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: $(this).attr('data-remote'),
+                            success: function (response) {
+                                if (response.code === 202) {
+                                    Table.draw('page');
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Your imaginary file has been deleted.',
+                                        'success'
+                                    );
+                                }
+                            }
+                        })
+                    } else {
+                        Swal.fire(
+                            'Cancelled',
+                            'Your imaginary file is safe :)',
+                            'error'
+                        )
+                    }
+                })
             });
         });
     </script>
