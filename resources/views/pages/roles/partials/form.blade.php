@@ -27,14 +27,14 @@
                             @endif
                         @endforeach
                         @if($found)
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-sm-6">
                                 <div class="icheck-primary icheck-inline">
                                     <input type="checkbox" name="permissions[]" id="check-{{$permission->id}}" value="{{$permission->id}}" checked/>
                                     <label for="check-{{ $permission->id }}" class="text-capitalize">{{ $permission->name }}</label>
                                 </div>
                             </div>
                         @else
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-sm-6">
                                 <div class="icheck-primary icheck-inline">
                                     <input type="checkbox" name="permissions[]" id="check-{{$permission->id}}" value="{{$permission->id}}"/>
                                     <label for="check-{{ $permission->id }}" class="text-capitalize">{{ $permission->name }}</label>
@@ -42,7 +42,7 @@
                             </div>
                         @endif
                     @else
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-6">
                             <div class="icheck-primary icheck-inline">
                                 <input type="checkbox" name="permissions[]" id="check-{{$permission->id}}" value="{{$permission->id}}"/>
                                 <label for="check-{{ $permission->id }}" class="text-capitalize">{{ $permission->name }}</label>

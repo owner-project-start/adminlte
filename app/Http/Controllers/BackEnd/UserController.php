@@ -10,7 +10,9 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
@@ -170,5 +172,50 @@ class UserController extends ParentController
     public function delete($id)
     {
         return parent::delete($id);
+    }
+
+    public function profile()
+    {
+        return view('pages.profile.index');
+    }
+
+    public function updateInfo(Request $request, $id)
+    {
+        try {
+            $this->validate($request, [
+                'name' => 'required|min:3'
+            ]);
+            $updatedObject = $this->service->updateById($id, $request->all());
+            if ($updatedObject) {
+                return success_update($updatedObject);
+            }
+            return error('Something has been wrong');
+        } catch (ValidationException $validation) {
+            return error_validate($validation->errors());
+        }
+    }
+
+    public function changePassword(Request $request, $id)
+    {
+        try {
+            $this->validate($request, [
+                'old_password' => 'required|min:8',
+                'password' => 'required|min:8|confirmed',
+                'password_confirmation' => 'required'
+            ]);
+            $auth = $this->service->getById($id);
+            if ((Auth::user()->getAuthIdentifier()) == ($auth->id)) {
+                if (Hash::check($request->old_password, $auth->password)) {
+                    $this->service->changePassword($auth, $request->password);
+                    return success_update($auth);
+                } else {
+                    return error_validate(['old_password' => 'Record not match']);
+                }
+            } else {
+                return error('Something has been wrong');
+            }
+        } catch (ValidationException $validation) {
+            return error_validate($validation->errors());
+        }
     }
 }

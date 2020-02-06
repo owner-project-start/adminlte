@@ -18,4 +18,8 @@ Route::group(['prefix' => 'users'], function () {
     Route::group(['middleware' => 'permission:delete-users'], function () {
         Route::delete('delete/{id}', 'BackEnd\UserController@delete')->name('users.delete');
     });
+
+    Route::get('profile', 'BackEnd\UserController@profile')->name('users.profile');
+    Route::put('update-info/{id}', 'BackEnd\UserController@updateInfo')->name('users.update-info');
+    Route::put('change-password/{id}', 'BackEnd\UserController@changePassword')->name('users.change-password');
 });

@@ -5,7 +5,7 @@
 @section('header')
     <div class="row mb-2">
         <div class="col-md-6 col-sm-6 col-6">
-            <h1 class="m-0 text-dark">User Management</h1>
+            <h1 class="m-0 text-dark">User Managements</h1>
         </div>
         <div class="col-md-6 col-sm-6 col-6">
             <ol class="breadcrumb float-right">
