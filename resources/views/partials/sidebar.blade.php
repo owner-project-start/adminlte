@@ -23,19 +23,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('users') }}" class="nav-link {{ (request()->is('user-managements/users')) ? 'active' : '' }}">
+                            <a href="{{ route('users') }}" class="nav-link {{ (request()->is('user-managements/users*')) ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Users</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('roles') }}" class="nav-link {{ (request()->is('user-managements/roles')) ? 'active' : '' }}">
+                            <a href="{{ route('roles') }}" class="nav-link {{ (request()->is('user-managements/roles*')) ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Roles</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('permissions') }}" class="nav-link {{ (request()->is('user-managements/permissions')) ? 'active' : '' }}">
+                            <a href="{{ route('permissions') }}" class="nav-link {{ (request()->is('user-managements/permissions*')) ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Permissions</p>
                             </a>

@@ -116,10 +116,12 @@
                          alt="Avatar">
                 </div>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <span class="dropdown-item dropdown-header text-capitalize">{{ Auth::user()->name }}</span>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ route('logout') }}"
+            <div class="dropdown-menu dropdown-menu-right p-0" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item p-0" href="{{ route('users.profile') }}">
+                    <span class="dropdown-item dropdown-header text-capitalize name">{{ Auth::user()->name }}</span>
+                </a>
+                <div class="dropdown-divider m-0"></div>
+                <a class="dropdown-item p-0" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                    document.getElementById('logout-form').submit();">
                     <span class="dropdown-item dropdown-header text-capitalize">{{ __('Logout') }}</span>

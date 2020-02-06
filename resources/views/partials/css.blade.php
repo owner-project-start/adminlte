@@ -26,3 +26,6 @@
 @if(config('sweetalert.animation.enable'))
     <link rel="stylesheet" href="{{ config('sweetalert.animatecss') }}">
 @endif
+
+@toastr_css
+<link rel="stylesheet" href="{{ asset('css/temp.css') }}">
