@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Hash;
-use App\User;
+use App\Models\User;
 
 class UsersTableSeeder extends Seeder
 {
@@ -15,7 +15,6 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::truncate();
-        factory(User::class, 100)->create();
         if (Schema::hasTable('users')) {
             $users = [
                 [
@@ -37,7 +36,7 @@ class UsersTableSeeder extends Seeder
                     'name' => 'destroyer',
                     'email' => 'deleter@admin.com',
                     'password' => Hash::make(12345678),
-                ]
+                ],
             ];
 
             foreach ($users as $user){

@@ -37,12 +37,15 @@ function success_delete($data, $code = 202)
     ]);
 }
 
-function error()
+function error($message = 'Missing fill', $code = 400)
 {
-
+    return response()->json([
+        'code' => $code,
+        'message' => $message,
+    ]);
 }
 
-function error_validate($validate, $code = 400)
+function error_validate($validate, $code = 403)
 {
     return response()->json([
         'code' => $code,
@@ -51,11 +54,22 @@ function error_validate($validate, $code = 400)
     ]);
 }
 
-function error_notFound($data, $code = 404)
+function error_notFound($code = 404)
 {
     return response()->json([
         'code' => $code,
         'message' => 'Error, Record not found',
-        'data' => $data
     ]);
+}
+
+function countUser()
+{
+    $totalUsers = count(\App\User::all());
+    return $totalUsers;
+}
+
+function roleAdmin()
+{
+    $roleAdmin = \Spatie\Permission\Models\Role::where('name', 'administration')->first();
+    return $roleAdmin;
 }

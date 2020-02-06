@@ -12,12 +12,28 @@ class RoleService extends BaseService
         $this->model = $role;
     }
 
-    public function getRoles()
+
+    public function createRole($attribute)
     {
-        $objects = $this->model->all();
-        if ($objects) {
-            return $objects;
+        $createdObject = $this->model->create([
+            'name' => $attribute['name']
+        ]);
+        if (!$createdObject) {
+            return false;
         }
-        return false;
+        return $createdObject;
+    }
+
+    public function updateRole($id, $attribute)
+    {
+        $modelObj = $this->getById($id);
+        if (!$modelObj) {
+            false;
+        }
+        $result = $modelObj->fill([
+            'name' => $attribute->name
+        ]);
+        $result->update();
+        return $result;
     }
 }

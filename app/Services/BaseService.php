@@ -9,7 +9,7 @@ class BaseService
     public function all()
     {
         $objects = $this->model->all();
-        if ($objects){
+        if ($objects) {
             return $objects;
         }
         return false;
@@ -18,7 +18,7 @@ class BaseService
     public function getSelect($field)
     {
         $object = $this->model->select($field);
-        if ($object){
+        if ($object) {
             return $object;
         }
         return false;
@@ -39,6 +39,47 @@ class BaseService
         return error_notFound($id);
     }
 
+    public function create($attributes)
+    {
+        if (!$attributes) {
+            return false;
+        }
+        return $this->model->create($attributes);
+    }
+
+    public function updateOrCreate($attributes)
+    {
+        if (!$attributes) {
+            return false;
+        }
+        return $this->model->updateOrCreate($attributes);
+    }
+
+    public function updateById($id, $attribute)
+    {
+        $modelObj = $this->getById($id);
+        if (!$modelObj) {
+            return false;
+        }
+        $result = $modelObj->fill($attribute);
+        $result->update();
+        return $result;
+    }
+
+    public function getByArray($field, $attribute)
+    {
+        $result = $this->model->whereIn($field, $attribute)->get();
+        if (!$result) {
+            return false;
+        }
+        return $result;
+    }
+
+    public function getList()
+    {
+        return $this->model->all()->toArray();
+    }
+
     public function delete($id)
     {
         $result = $this->model->find($id);
@@ -49,4 +90,18 @@ class BaseService
         return false;
     }
 
+    public function getData()
+    {
+
+    }
+
+    public function assignRole()
+    {
+
+    }
+
+    public function givePermission()
+    {
+
+    }
 }
