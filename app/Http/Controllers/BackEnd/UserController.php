@@ -80,7 +80,7 @@ class UserController extends ParentController
                     $action = $action . ' <button type="button" data-remote="' . route('users.delete', $user->id) . '" class="btn btn-danger btn-sm btn-x-sm" id="delete"><i class="far fa-trash-alt"></i></button>';
                 }
                 if (auth()->user()->can('change-password-users')) {
-                    $action = $action . ' <a href="' . route('users.edit', $user->id) . '" class="btn btn-warning btn-sm btn-x-sm"><i class="fas fa-sync-alt"></i></a>';
+                    $action = $action . ' <a href="' . route('users.password', $user->id) . '" class="btn btn-warning btn-sm btn-x-sm"><i class="fas fa-sync-alt"></i></a>';
                 }
                 return $action;
             })
@@ -148,6 +148,7 @@ class UserController extends ParentController
         if ($id) {
             $attributes = $request->all();
             $this->validate($request, $this->model->rulesToUpdate($id));
+            DB::beginTransaction();
             $updatedObject = $this->service->updateById($id, $attributes);
             if ($updatedObject) {
                 if (isset($request->roles)) {
@@ -160,8 +161,10 @@ class UserController extends ParentController
                 toastSuccess('Record has been updated successfully!');
                 return redirect()->route('users');
             }
+            DB::rollBack();
             return error('Record not create');
         }
+        DB::rollBack();
         return error("Record id is required");
     }
 
@@ -217,5 +220,26 @@ class UserController extends ParentController
         } catch (ValidationException $validation) {
             return error_validate($validation->errors());
         }
+    }
+
+    public function password($id)
+    {
+        $user = $this->service->getById($id);
+        return view('pages.users.editPassword', compact('user'));
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        $this->validate($request, [
+            'password' => 'required|min:8|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+        $auth = $this->service->getById($id);
+        if (!$auth) {
+            return $this->error();
+        }
+        $this->service->changePassword($auth, $request->password);
+        toastSuccess('Password has been updated');
+        return redirect()->route('users');
     }
 }

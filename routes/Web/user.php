@@ -19,6 +19,11 @@ Route::group(['prefix' => 'users'], function () {
         Route::delete('delete/{id}', 'BackEnd\UserController@delete')->name('users.delete');
     });
 
+    Route::group(['middleware' => 'permission:change-password-users'], function () {
+        Route::get('password/{id}', 'BackEnd\UserController@password')->name('users.password');
+        Route::put('update-password/{id}', 'BackEnd\UserController@updatePassword')->name('users.update-password');
+    });
+
     Route::get('profile', 'BackEnd\UserController@profile')->name('users.profile');
     Route::put('update-info/{id}', 'BackEnd\UserController@updateInfo')->name('users.update-info');
     Route::put('change-password/{id}', 'BackEnd\UserController@changePassword')->name('users.change-password');

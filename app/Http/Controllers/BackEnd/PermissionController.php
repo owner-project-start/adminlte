@@ -89,11 +89,11 @@ class PermissionController extends ParentController
         DB::beginTransaction();
         $createdObject = $this->service->createPermission($request->all());
         if (!$createdObject) {
-            roleAdmin()->givePermissionTo($createdObject);
             DB::rollBack();
             return error('Record not saved');
         }
         DB::commit();
+        roleAdmin()->givePermissionTo($createdObject);
         toastSuccess('Record has been saved Successfully');
         return redirect()->route('permissions');
     }
