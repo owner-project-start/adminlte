@@ -9,9 +9,6 @@
             <a class="btn btn-sm btn-primary" href="{{ route('roles.create') }}">
                 <i class="fas fa-plus-circle"></i> Roles
             </a>
-            @can('delete-users')
-                <button type="button" data-remote="' . route('users.delete', $user->id) . '" class="btn btn-danger btn-sm" id="delete"><i class="far fa-trash-alt"></i> Delete</button>
-            @endcan
         </div>
         <div class="col-md-6 col-sm-6 col-6">
             <ol class="breadcrumb float-right">
