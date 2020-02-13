@@ -59,9 +59,9 @@ class PermissionController extends ParentController
             })
             ->addColumn('action', function ($permission) {
                 $action = "";
-                if (auth()->user()->can('edit-permissions')) {
-                    $action = $action . ' <a href="' . route('roles.edit', $permission->id) . '" class="btn btn-info btn-sm btn-x-sm"><i class="fas fa-pencil-alt"></i></a>';
-                }
+//                if (auth()->user()->can('edit-permissions')) {
+//                    $action = $action . ' <a href="' . route('roles.edit', $permission->id) . '" class="btn btn-info btn-sm btn-x-sm"><i class="fas fa-pencil-alt"></i></a>';
+//                }
                 if (auth()->user()->can('delete-permissions')) {
                     $action = $action . ' <button type="button" data-remote="' . route('permissions.delete', $permission->id) . '" class="btn btn-danger btn-sm btn-x-sm" id="delete"><i class="far fa-trash-alt"></i></button>';
                 }
