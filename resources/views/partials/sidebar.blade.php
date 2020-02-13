@@ -17,7 +17,7 @@
                 </li>
                 <li class="nav-item has-treeview {{ (request()->is('user-management*')) ? 'menu-open' : '' }}">
                     <a href="javascript:void(0)" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>Users Management</p>
                         <i class="fas fa-angle-left right"></i>
                     </a>

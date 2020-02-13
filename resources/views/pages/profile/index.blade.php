@@ -41,10 +41,10 @@
                             <a class="nav-link" href="#change-password" id="change-password-tab" data-toggle="tab"
                                role="tab" aria-controls="change-password" aria-selected="true">Change Password</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#avatar" id="avatar-tab" data-toggle="tab" role="tab"
-                               aria-controls="avatar" aria-selected="true">Change Avatar</a>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link" href="#avatar" id="avatar-tab" data-toggle="tab" role="tab"--}}
+{{--                               aria-controls="avatar" aria-selected="true">Change Avatar</a>--}}
+{{--                        </li>--}}
                     </ul>
                     <div class="tab-content border border-top-0 p-4" id="myTabContent">
                         <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
@@ -53,13 +53,13 @@
                         <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="profile-tab">
                             @include('pages.profile.partials.password')
                         </div>
-                        <div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="avatar-tab">2</div>
+{{--                        <div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="avatar-tab">2</div>--}}
                     </div>
                 </div>
             </div>
         </div>
         <div class="card-footer text-muted text-center">
-            Welcome to our system 🥰
+            Welcome to our system.
         </div>
     </div>
 @endsection

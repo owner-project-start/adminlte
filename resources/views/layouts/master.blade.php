@@ -13,7 +13,7 @@
 <div class="wrapper" id="app">
     @include('partials.navbar')
     @include('partials.sidebar')
-    <div class="content-wrapper">
+    <div class="content-wrapper main">
         <div class="content-header">
             <div class="container-fluid">
                 @yield('header')
