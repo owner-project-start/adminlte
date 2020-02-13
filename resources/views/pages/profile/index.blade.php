@@ -23,7 +23,7 @@
                 <div class="col-md-4">
                     <div class="row">
                         <div class="col-md-12 d-flex justify-content-center">
-                            <img src="{{ asset('img/avatar.png') }}" class="img-thumbnail rounded-circle" alt="">
+                            <img src="{{ asset('img/default.jpg') }}" class="img-thumbnail rounded-circle" alt="">
                         </div>
                         <div class="col-md-12 d-flex justify-content-center mt-2">
                             <h4 class="name text-capitalize text-muted">{{ Auth::user()->name }}</h4>
