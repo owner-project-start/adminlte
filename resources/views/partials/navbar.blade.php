@@ -30,7 +30,7 @@
                 <a href="#" class="dropdown-item">
                     <!-- Message Start -->
                     <div class="media">
-                        <img src="{{ asset('img/default.jpg') }}" alt="User Avatar"
+                        <img src="{{ asset('img/user1-128x128.jpg') }}" alt="User Avatar"
                              class="img-size-50 mr-3 img-circle">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
@@ -112,7 +112,7 @@
             <a class="" data-toggle="dropdown" href="#">
                 <div class="px-2">
                     <img class="brand-image img-circle elevation-3" width="30px"
-                         src="{{ asset('img/user1-128x128.jpg') }}"
+                         src="{{ asset('img/default.jpg') }}"
                          alt="Avatar">
                 </div>
             </a>
