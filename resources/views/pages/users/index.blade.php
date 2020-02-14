@@ -49,7 +49,6 @@
                     [10, 25, 50, 100],
                     [10, 25, 50, 100]
                 ],
-                order: [[3, 'desc']],
                 pageLength: 10,
                 ajax: {
                     url: '{{ route('get.users') }}',
@@ -58,7 +57,7 @@
                 columns: [
                     {data: 'name',},
                     {data: 'email',},
-                    {data: 'roles', name: 'roles.name'},
+                    {data: 'roles', name: 'roles.name', orderable: false},
                     {data: 'created_at', orderable: false, searchable: false},
                     {data: 'updated_at', orderable: false, searchable: false},
                     {data: 'action', orderable: false, searchable: false}

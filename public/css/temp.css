@@ -30,3 +30,7 @@ strong {
 p, span, b {
     font-family: "Times New Roman", Times, serif !important;
 }
+
+table.dataTable {
+    border-collapse: collapse !important;
+}

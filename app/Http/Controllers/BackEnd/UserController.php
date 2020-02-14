@@ -84,6 +84,8 @@ class UserController extends ParentController
                 }
                 return $action;
             })
+            ->orderColumn('created_at', '-created_at')
+            ->orderByNullsLast()
             ->rawColumns(['name', 'roles', 'action'])
             ->make(true);
     }

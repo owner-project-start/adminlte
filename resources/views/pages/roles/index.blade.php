@@ -4,11 +4,11 @@
 
 @section('header')
     <div class="row mb-2">
-        <div class="col-sm-6">
+        <div class="col-md-6 col-sm-6 col-6">
             <h1 class="m-0 text-dark">Role Managements</h1>
         </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
+        <div class="col-md-6 col-sm-6 col-6">
+            <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item">
                     @can('create-roles')
                         <a href="{{ route('roles.create') }}" class="btn btn-sm btn-primary"><i
@@ -56,8 +56,8 @@
                 },
                 columns: [
                     {data: 'name'},
-                    {data: 'code'},
-                    {data: 'permissions', name: 'permissions.name'},
+                    {data: 'code', orderable: false, searchable: false},
+                    {data: 'permissions', name: 'permissions.name', orderable: false, searchable: false},
                     {data: 'created_at', orderable: false, searchable: false},
                     {data: 'updated_at', orderable: false, searchable: false},
                     {data: 'action', orderable: false, searchable: false}

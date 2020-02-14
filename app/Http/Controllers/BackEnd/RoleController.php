@@ -81,6 +81,7 @@ class RoleController extends ParentController
                 }
                 return $action;
             })
+            ->orderColumn('created_at', '-created_at')
             ->rawColumns(['name', 'action', 'permissions', 'created_at', 'updated_at'])
             ->make(true);
     }

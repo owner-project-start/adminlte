@@ -42,20 +42,29 @@ class PermissionController extends ParentController
      */
     public function getData()
     {
-        $permissions = $this->service->getSelect(['id', 'name', 'created_at', 'updated_at']);
+        $permissions = $this->service->getSelectWithRelation(['id', 'name', 'created_at', 'updated_at'], 'roles');
         return DataTables::of($permissions)
             ->editColumn('name', function ($permission) {
                 $permissionName = str_replace('-', ' ', $permission->name);
                 return '<span class="text-capitalize">' . $permissionName . '</span>';
-            })
-            ->addColumn('code', function ($permission) {
-                return $permission->name;
             })
             ->editColumn('created_at', function ($permission) {
                 return Carbon::parse($permission->created_at)->format('M-d-Y');
             })
             ->editColumn('updated_at', function ($permission) {
                 return Carbon::parse($permission->created_at)->format('M-d-Y');
+            })
+            ->addColumn('code', function ($permission) {
+                return $permission->name;
+            })
+            ->addColumn('roles', function ($permission) {
+                $roleName = $permission->roles->map(function ($role) {
+                    return '<span class="badge badge-success text-capitalize">' . $role->name . '</span>';
+                })->implode(' ');
+                return $roleName;
+            })
+            ->filterColumn('roles', function ($query, $keyword) {
+                $query->whereRaw("roles like ?", ["%$keyword%"]);
             })
             ->addColumn('action', function ($permission) {
                 $action = "";
@@ -67,7 +76,8 @@ class PermissionController extends ParentController
                 }
                 return $action;
             })
-            ->rawColumns(['name', 'created_at', 'updated_at', 'action'])
+            ->orderColumn('created_at', '-created_at')
+            ->rawColumns(['name', 'created_at', 'updated_at', 'action', 'roles'])
             ->make(true);
     }
 
