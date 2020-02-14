@@ -15,8 +15,9 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+                <li class="nav-header">Access Management</li>
                 <li class="nav-item has-treeview {{ (request()->is('user-management*')) ? 'menu-open' : '' }}">
-                    <a href="javascript:void(0)" class="nav-link">
+                    <a href="javascript:void(0)" class="nav-link {{ (request()->is('user-management*')) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>Users Management</p>
                         <i class="fas fa-angle-left right"></i>

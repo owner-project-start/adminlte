@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @include('auth.partials.css')
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page main">
 <div class="login-box" id="app">
     <div class="card">
         <div class="card-body login-card-body">

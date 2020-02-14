@@ -7,9 +7,26 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .b-t-green {
-    border-top: 3px solid forestgreen ;
+    border-top: 3px solid forestgreen;
 }
 
 .main {
-    background-image: url("/img/bg_contit.gif");
+    background-image: url("/img/bg_contit.gif") !important;
+    font-family: "Times New Roman", Times, serif;
+}
+
+a {
+    font-family: "Times New Roman", Times, serif;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Times New Roman", Times, serif !important;
+}
+
+strong {
+    font-family: "Times New Roman", Times, serif !important;
+}
+
+p, span, b {
+    font-family: "Times New Roman", Times, serif !important;
 }

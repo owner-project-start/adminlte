@@ -10,7 +10,7 @@
     @include('partials.css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed text-sm">
-<div class="wrapper" id="app">
+<div class="wrapper main" id="app">
     @include('partials.navbar')
     @include('partials.sidebar')
     <div class="content-wrapper main">
