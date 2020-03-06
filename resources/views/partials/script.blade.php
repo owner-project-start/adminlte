@@ -2,7 +2,7 @@
 <!-- jQuery -->
 {{--<script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>--}}
 
-@jquery
+{{--@jquery--}}
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('node_modules/jqueryui/jquery-ui.min.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

@@ -1,21 +1,21 @@
 <div class="form-group row">
     <label for="old_password" class="col-md-4 col-sm-3 col-4 col-form-label text-right">Old Password</label>
     <div class="col-md-8 col-8">
-        <input type="text" class="form-control" name="old_password" id="old_password">
+        <input type="password" class="form-control" name="old_password" id="old_password">
         <div class="invalid-feedback old_password"></div>
     </div>
 </div>
 <div class="form-group row">
     <label for="password" class="col-md-4 col-sm-3 col-4 col-form-label text-right">New Password</label>
     <div class="col-md-8 col-8">
-        <input type="text" class="form-control" name="password" id="password">
+        <input type="password" class="form-control" name="password" id="password">
         <div class="invalid-feedback password"></div>
     </div>
 </div>
 <div class="form-group row">
     <label for="password_confirmation" class="col-md-4 col-sm-3 col-4 col-form-label text-right">Confirm Password</label>
     <div class="col-md-8 col-8">
-        <input type="text" class="form-control" name="password_confirmation" id="password_confirmation">
+        <input type="password" class="form-control" name="password_confirmation" id="password_confirmation">
         <div class="invalid-feedback password_confirmation"></div>
     </div>
 </div>
