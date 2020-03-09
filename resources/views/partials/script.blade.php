@@ -33,5 +33,6 @@
 <script src="{{ asset('node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 
 <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
+<script src="{{ asset('node_modules/croppie/croppie.min.js') }}"></script>
 @toastr_js
 @toastr_render

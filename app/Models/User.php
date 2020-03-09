@@ -12,7 +12,7 @@ class User extends Authenticate
     use SoftDeletes, Notifiable, HasRoles;
     protected $table = 'users';
     protected $fillable = [
-        'name', 'email', 'password', 'active'
+        'name', 'email', 'password', 'avatar', 'active'
     ];
 
     protected $hidden = [

@@ -1,5 +1,9 @@
 <?php
 
+function imgExtension() {
+    return ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+}
+
 function success($data, $code = 200)
 {
     $message = 'Successfully, Data is received';

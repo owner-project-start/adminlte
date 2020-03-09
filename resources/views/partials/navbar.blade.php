@@ -1,4 +1,4 @@
-<nav class="main-header navbar navbar-expand border-bottom-0 navbar-dark navbar-lightblue border-bottom-0">
+<nav class="main-header navbar navbar-expand navbar-dark navbar-lightblue border-bottom-0 sticky-top">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -111,8 +111,8 @@
         <li class="nav-item dropdown">
             <a class="" data-toggle="dropdown" href="#">
                 <div class="px-2">
-                    <img class="brand-image img-circle elevation-3" width="30px"
-                         src="{{ asset('img/default.jpg') }}"
+                    <img class="brand-image img-circle elevation-3 nav-avatar" width="30px"
+                         src="{{ asset(auth()->user()->avatar) }}"
                          alt="Avatar">
                 </div>
             </a>

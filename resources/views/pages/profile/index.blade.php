@@ -18,42 +18,64 @@
 
 @section('content')
     <div class="card b-t-green">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#info" id="info-tab" data-toggle="tab" role="tab"
+                       aria-controls="info" aria-selected="true">Information</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#change-password" id="change-password-tab" data-toggle="tab"
+                       role="tab" aria-controls="change-password" aria-selected="true">Change Password</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#change-avatar" id="change-avatar-tab" data-toggle="tab"
+                       role="tab" aria-controls="change-avatar" aria-selected="true">Change Profile</a>
+                </li>
+            </ul>
+        </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-3">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                     <div class="row">
                         <div class="col-md-12 d-flex justify-content-center">
-                            <img src="{{ asset('img/default.jpg') }}" class="img-thumbnail rounded-circle" alt="">
-                        </div>
-                        <div class="col-md-12 d-flex justify-content-center mt-2">
-                            <h4 class="name text-capitalize text-muted">{{ Auth::user()->name }}</h4>
+                            <div class="card">
+                                <img src="{{ asset(auth()->user()->avatar) }}"
+                                     class="card-img img-thumbnail" alt="" id="avatar">
+                                <div class="card-img-overlay d-flex flex-column">
+                                    <h3 class="card-title link-muted text-capitalize">{{ auth()->user()->name }}</h3>
+                                    <button type="button" id="changeImage"
+                                            class="mt-auto btn btn-sm btn-x-sm btn-block btn-secondary">
+                                        <i class="fas fa-image"></i> Change Image
+                                    </button>
+                                </div>
+                                <input type="file" class="item-img file center-block" id="image" name="file_photo"
+                                       style="display:none;"/>
+                            </div>
                         </div>
                     </div>
+                    @include('pages.profile.partials.infomation')
                 </div>
-                <div class="col-md-8">
-                    <br class="d-md-none d-lg-none">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#info" id="info-tab" data-toggle="tab" role="tab"
-                               aria-controls="info" aria-selected="true">Information</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#change-password" id="change-password-tab" data-toggle="tab"
-                               role="tab" aria-controls="change-password" aria-selected="true">Change Password</a>
-                        </li>
-{{--                        <li class="nav-item">--}}
-{{--                            <a class="nav-link" href="#avatar" id="avatar-tab" data-toggle="tab" role="tab"--}}
-{{--                               aria-controls="avatar" aria-selected="true">Change Avatar</a>--}}
-{{--                        </li>--}}
-                    </ul>
-                    <div class="tab-content border border-top-0 p-4" id="myTabContent">
-                        <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
-                            @include('pages.profile.partials.infomation')
+                <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="change-passwordc-tab">
+                    @include('pages.profile.partials.password')
+                </div>
+                <div class="tab-pane fade" id="change-avatar" role="tabpanel" aria-labelledby="change-avatar-tab">
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <div class="card m-0">
+                                <img src="{{ asset(auth()->user()->avatar) }}"
+                                     class="card-img img-thumbnail" alt="" id="avatar">
+                                <div class="card-img-overlay d-flex flex-column">
+                                    <h3 class="card-title link-muted text-capitalize">{{ auth()->user()->name }}</h3>
+                                    <button type="button" id="changeImage"
+                                            class="mt-auto btn btn-sm btn-x-sm btn-block btn-secondary">
+                                        <i class="fas fa-image"></i> Change Image
+                                    </button>
+                                </div>
+                                <input type="file" class="item-img file center-block" id="image" name="file_photo"
+                                       style="display:none;"/>
+                            </div>
                         </div>
-                        <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="profile-tab">
-                            @include('pages.profile.partials.password')
-                        </div>
-{{--                        <div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="avatar-tab">2</div>--}}
                     </div>
                 </div>
             </div>
@@ -61,6 +83,29 @@
         <div class="card-footer text-muted text-center">
             Welcome to our system.
         </div>
+    </div>
+
+    <div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="upload-demo" class="center-block"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="cropImageBtn" class="btn btn-sm btn-outline-primary"
+                            data-remote="{{ route('users.change-avatar', Auth::user()->id) }}">Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 @endsection
 
@@ -99,6 +144,87 @@
                     }
                 }
             })
+        });
+    </script>
+
+    <script>
+        var $uploadCrop,
+            tempFilename,
+            rawImg,
+            imageId;
+
+        $("#changeImage").on('click', function (e) {
+            $('.item-img').trigger('click');
+        });
+
+        function readFile(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.upload-demo').addClass('ready');
+                    $('#cropImagePop').modal('show');
+                    rawImg = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                swal("Sorry - you're browser doesn't support the FileReader API");
+            }
+        }
+
+        $uploadCrop = $('#upload-demo').croppie({
+            viewport: {
+                width: 175,
+                height: 175,
+            },
+            enforceBoundary: false,
+            enableExif: true
+        });
+        $('#cropImagePop').on('shown.bs.modal', function () {
+            // alert('Shown pop');
+            $uploadCrop.croppie('bind', {
+                url: rawImg
+            }).then(function () {
+                console.log('jQuery bind complete');
+            });
+        });
+
+        $('.item-img').on('change', function (e) {
+            const extension = $('#image').val().split('.').pop().toLowerCase();
+            if (/^(jpg|jpeg|png|gif|bmp)$/.test(extension)) {
+                imageId = $(this).data('id');
+                tempFilename = $(this).val();
+                $('#cancelCropBtn').data('id', imageId);
+                readFile(this);
+            } else {
+                toastr.warning('Please input file image.');
+            }
+            // imageId = $(this).data('id');
+            // tempFilename = $(this).val();
+            // $('#cancelCropBtn').data('id', imageId);
+            // readFile(this);
+        });
+        $('#cropImageBtn').on('click', function (ev) {
+            $uploadCrop.croppie('result', {
+                type: 'base64',
+                format: 'jpeg',
+                size: {width: 200, height: 200}
+            }).then(function (resp) {
+                $('#avatar').attr('src', resp);
+                $('.nav-avatar').attr('src', resp);
+                $('#cropImagePop').modal('hide');
+                $.ajax({
+                    url: $('#cropImageBtn').attr('data-remote'),
+                    type: 'PUT',
+                    data: {
+                        avatar: resp
+                    },
+                    success: (response) => {
+                        if (response.code === 202) {
+                            toastr.success(response.message);
+                        }
+                    }
+                })
+            });
         });
     </script>
 @endpush

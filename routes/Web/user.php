@@ -27,4 +27,5 @@ Route::group(['prefix' => 'users'], function () {
     Route::get('profile', 'BackEnd\UserController@profile')->name('users.profile');
     Route::put('update-info/{id}', 'BackEnd\UserController@updateInfo')->name('users.update-info');
     Route::put('change-password/{id}', 'BackEnd\UserController@changePassword')->name('users.change-password');
+    Route::put('change-avatar/{id}', 'BackEnd\UserController@changeAvatar')->name('users.change-avatar');
 });

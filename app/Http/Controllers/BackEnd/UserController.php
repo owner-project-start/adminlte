@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -243,5 +244,37 @@ class UserController extends ParentController
         $this->service->changePassword($auth, $request->password);
         toastSuccess('Password has been updated');
         return redirect()->route('users');
+    }
+
+    public function changeAvatar(Request $request, $id)
+    {
+        DB::beginTransaction();
+        $auth = $this->service->getById($id);
+        if ((Auth::user()->getAuthIdentifier()) == ($auth->id)) {
+            $avatar = $request->input('avatar');
+            $avatar = str_replace('data:image/jpeg;base64,', '', $avatar);
+            $avatar = str_replace(' ', '+', $avatar);
+            $name = time() . '.' . 'png';
+            $folder = '/storage/users';
+            $avatarName = $folder . '/' . $name;
+            if (!File::exists(public_path($folder))) {
+                File::makeDirectory(public_path($folder), 0777, true, true);
+            }
+            if ($auth->avatar === 'storage/users/default.png') {
+                File::put(public_path($folder) . '/' . $name, base64_decode($avatar));
+            } else {
+                File::put(public_path($folder) . '/' . $name, base64_decode($avatar));
+                $authAvatar = public_path($auth->avatar);
+                if (File::exists($authAvatar)) {
+                    File::delete($authAvatar);
+                }
+            }
+            $this->service->changeAvatar($auth, $avatarName);
+            DB::commit();
+            return success_update($auth);
+        } else {
+            DB::rollBack();
+            return error('Something has been wrong');
+        }
     }
 }

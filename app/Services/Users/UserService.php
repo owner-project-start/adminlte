@@ -18,7 +18,18 @@ class UserService extends BaseService
         $auth->update([
             'password' => Hash::make($password)
         ]);
-        if (!$auth){
+        if (!$auth) {
+            return false;
+        }
+        return $auth;
+    }
+
+    public function changeAvatar($auth, $avatar)
+    {
+        $auth->update([
+            'avatar' => $avatar
+        ]);
+        if (!$auth) {
             return false;
         }
         return $auth;

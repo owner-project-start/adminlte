@@ -34,3 +34,8 @@ p, span, b {
 table.dataTable {
     border-collapse: collapse !important;
 }
+
+#upload-demo{
+    height: 250px;
+    padding-bottom:25px;
+}
