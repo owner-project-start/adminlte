@@ -15,20 +15,25 @@ class RolesTableSeeder extends Seeder
     {
         Role::truncate();
         if (Schema::hasTable('roles')) {
+            foreach (Models() as $model) {
+                $roles = [
+                    [
+                        'name' => $model . '-managements'
+                    ],
+                ];
+                foreach ($roles as $role) {
+                    Role::create([
+                        'name' => $role['name']
+                    ]);
+                }
+            }
+
             $roles = [
                 [
                     'name' => 'administration',
-                ],
-                [
-                    'name' => 'creator',
-                ],
-                [
-                    'name' => 'editor',
-                ],
-                [
-                    'name' => 'destroyer',
                 ]
             ];
+
             foreach ($roles as $role) {
                 Role::create($role);
             }

@@ -77,3 +77,11 @@ function roleAdmin()
     $roleAdmin = \Spatie\Permission\Models\Role::where('name', 'administration')->first();
     return $roleAdmin;
 }
+
+function Models()
+{
+    $models = [
+        'users', 'roles', 'permissions',
+    ];
+    return $models;
+}

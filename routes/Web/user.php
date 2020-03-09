@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['prefix' => 'users'], function () {
-    Route::group(['middleware' => 'permission:list-users'], function () {
+    Route::group(['middleware' => 'permission:users-managements'], function () {
         Route::get('', 'BackEnd\UserController@index')->name('users');
         Route::get('getData', 'BackEnd\UserController@getData')->name('get.users');
     });

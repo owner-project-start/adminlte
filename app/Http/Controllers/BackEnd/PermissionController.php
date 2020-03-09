@@ -33,7 +33,7 @@ class PermissionController extends ParentController
      */
     public function index()
     {
-        return view('pages.permissions.index');
+        return view('pages.assessments.permissions.index');
     }
 
     /**
@@ -83,7 +83,7 @@ class PermissionController extends ParentController
 
     public function create()
     {
-        return view('pages.permissions.create');
+        return view('pages.assessments.permissions.create');
     }
 
     /**

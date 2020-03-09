@@ -25,7 +25,7 @@
             <form method="POST" action="{{ route('roles.edit', $role->id) }}">
                 @csrf
                 <input type="hidden" name="_method" value="PUT">
-                @include('pages.roles.partials.form')
+                @include('pages.assessments.roles.partials.form')
                 <div class="row justify-content-end">
                     <div class="col-md-10 col-sm-9 col-8">
                         <button type="submit" class="btn btn-sm btn-primary">Update</button>

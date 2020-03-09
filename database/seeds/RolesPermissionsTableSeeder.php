@@ -17,40 +17,34 @@ class RolesPermissionsTableSeeder extends Seeder
     {
         if (Schema::hasTable('users') || Schema::hasTable('roles')){
             $admin = User::where('name', 'admin')->first();
-            $creator = User::where('name', 'creator')->first();
-            $editor = User::where('name', 'editor')->first();
-            $destroyer = User::where('name', 'destroyer')->first();
 
             $roleAdmin = Role::where('name', 'administration')->first();
-            $roleCreator = Role::where('name', 'creator')->first();
-            $roleEditor = Role::where('name', 'editor')->first();
-            $roleDestroyer = Role::where('name', 'destroyer')->first();
+            $role = Role::where('name', 'LIKE', '%roles%')->first();
+            $user = Role::where('name', 'LIKE', '%users%')->first();
+            $permission = Role::where('name', 'LIKE', '%permissions%')->first();
 
             $allPermission = Permission::get();
-            $permissionCreate = Permission::where('name', 'LIKE', '%create%')
-                ->orWhere('name', 'LIKE', '%list%')
+            $users = Permission::where('name', 'LIKE', '%users%')
+                ->orWhere('name', 'LIKE', '%access-management%')
+                ->orWhere('name', 'LIKE', '%users-management%')
                 ->orWhere('name', 'like', '%backend%')
                 ->get();
-            $permissionEdit = Permission::where('name', 'LIKE', '%edit%')
-                ->orWhere('name', 'LIKE', '%list%')
+            $roles = Permission::where('name', 'LIKE', '%roles%')
+                ->orWhere('name', 'LIKE', '%access-management%')
+                ->orWhere('name', 'LIKE', '%roles-management%')
                 ->orWhere('name', 'like', '%backend%')
                 ->get();
-            $permissionDelete = Permission::where('name', 'LIKE', '%delete%')
-                ->orWhere('name', 'LIKE', '%list%')
+            $permissions = Permission::where('name', 'LIKE', '%permissions%')
+                ->orWhere('name', 'LIKE', '%access-management%')
+                ->orWhere('name', 'LIKE', '%permissions-management%')
                 ->orWhere('name', 'like', '%backend%')
                 ->get();
 
             $roleAdmin->givePermissionTo($allPermission);
             $admin->assignRole($roleAdmin);
-
-            $roleCreator->givePermissionTo($permissionCreate);
-            $creator->assignRole($roleCreator);
-
-            $roleEditor->givePermissionTo($permissionEdit);
-            $editor->assignRole($roleEditor);
-
-            $roleDestroyer->givePermissionTo($permissionDelete);
-            $destroyer->assignRole($roleDestroyer);
+            $role->givePermissionTo($roles);
+            $user->givePermissionTo($users);
+            $permission->givePermissionTo($permissions);
         }
     }
 }

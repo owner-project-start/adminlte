@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-6 col-sm-6 col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('users') }}">Users</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Users</a></li>
                 <li class="breadcrumb-item active">Edit</li>
             </ol>
         </div>
@@ -25,7 +25,7 @@
             <form method="POST" action="{{ route('users.update', $user->id) }}">
                 @csrf
                 <input type="hidden" name="_method" value="PUT">
-                @include('pages.users.partials.form')
+                @include('pages.assessments.users.partials.form')
                 <div class="row justify-content-end">
                     <div class="col-md-10 col-sm-9 col-8">
                         <button type="submit" class="btn btn-sm btn-primary">Update</button>

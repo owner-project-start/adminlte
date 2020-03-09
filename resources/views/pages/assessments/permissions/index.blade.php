@@ -1,18 +1,18 @@
 @extends('layouts.master')
 
-@section('title', 'Roles')
+@section('title', 'Permission')
 
 @section('header')
     <div class="row mb-2">
-        <div class="col-md-6 col-sm-6 col-6">
-            <h1 class="m-0 text-dark">Role Managements</h1>
+        <div class="col-md-6 col-sm-6 col-7">
+            <h1 class="m-0 text-dark">Permission Managements</h1>
         </div>
-        <div class="col-md-6 col-sm-6 col-6">
+        <div class="col-md-6 col-sm-6 col-5">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item">
-                    @can('create-roles')
-                        <a href="{{ route('roles.create') }}" class="btn btn-sm btn-primary"><i
-                                class="fas fa-plus-circle"></i> Role</a>
+                    @can('create-permissions')
+                        <a href="{{ route('permissions.create') }}" class="btn btn-sm btn-primary"><i
+                                class="fas fa-plus-circle"></i> Permission</a>
                     @endcan
                 </li>
             </ol>
@@ -24,9 +24,9 @@
     <div class="card b-t-green">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-sm table-hover table-bordered w-100" id="roles_table">
+                <table class="table table-sm table-bordered table-hover w-100" id="users_table">
                     <thead>
-                    @include('pages.roles.partials.field')
+                    @include('pages.assessments.permissions.partials.field')
                     </thead>
                 </table>
             </div>
@@ -42,7 +42,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            const Table = $('#roles_table').DataTable({
+            const Table = $('#users_table').DataTable({
                 processing: false,
                 serverSide: true,
                 lengthMenu: [
@@ -51,13 +51,13 @@
                 ],
                 pageLength: 10,
                 ajax: {
-                    url: '{{ route('get.roles') }}',
+                    url: '{{ route('get.permissions') }}',
                     type: "GET"
                 },
                 columns: [
                     {data: 'name'},
                     {data: 'code', orderable: false, searchable: false},
-                    {data: 'permissions', name: 'permissions.name', orderable: false, searchable: false},
+                    {data: 'roles', name: 'roles.name', orderable: false,},
                     {data: 'created_at', orderable: false, searchable: false},
                     {data: 'updated_at', orderable: false, searchable: false},
                     {data: 'action', orderable: false, searchable: false}
@@ -67,7 +67,7 @@
                         createdCell: function (td) {
                             $(td).attr('nowrap', true);
                         },
-                        "targets": [5]
+                        "targets": [0,1,5]
                     },
                 ]
             });

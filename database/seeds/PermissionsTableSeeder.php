@@ -12,15 +12,9 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        $models = [
-            'users', 'roles', 'permissions'
-        ];
 
-        foreach ($models as $model) {
+        foreach (Models() as $model) {
             $actions = [
-                [
-                    'name' => 'list-' . $model,
-                ],
                 [
                     'name' => 'create-' . $model,
                 ],
@@ -32,6 +26,9 @@ class PermissionsTableSeeder extends Seeder
                 ],
                 [
                     'name' => 'view-' . $model
+                ],
+                [
+                    'name' => $model . '-managements'
                 ]
             ];
             foreach ($actions as $action) {
@@ -40,11 +37,21 @@ class PermissionsTableSeeder extends Seeder
                 ]);
             }
         }
-        Permission::create([
-            'name' => 'change-password-users'
-        ]);
-        Permission::create([
-            'name' => 'backend'
-        ]);
+        $permissions = [
+            [
+                'name' => 'change-password-users'
+            ],
+            [
+                'name' => 'backend'
+            ],
+            [
+                'name' => 'access-managements'
+            ]
+        ];
+        foreach ($permissions as $permission) {
+            Permission::create([
+                'name' => $permission['name']
+            ]);
+        }
     }
 }

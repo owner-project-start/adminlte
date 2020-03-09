@@ -41,7 +41,7 @@ class UserController extends ParentController
      */
     public function index()
     {
-        return view('pages.users.index');
+        return view('pages.assessments.users.index');
     }
 
     /**
@@ -97,7 +97,7 @@ class UserController extends ParentController
     public function create()
     {
         $roles = $this->role->all();
-        return view('pages.users.create', compact('roles'));
+        return view('pages.assessments.users.create', compact('roles'));
     }
 
     /**
@@ -137,7 +137,7 @@ class UserController extends ParentController
         // find user from service
         $user = $this->service->getById($id);
         $roles = $this->role->all();
-        return view('pages.users.edit', compact('user', 'roles'));
+        return view('pages.assessments.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -228,7 +228,7 @@ class UserController extends ParentController
     public function password($id)
     {
         $user = $this->service->getById($id);
-        return view('pages.users.editPassword', compact('user'));
+        return view('pages.assessments.users.editPassword', compact('user'));
     }
 
     public function updatePassword(Request $request, $id)

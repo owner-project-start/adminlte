@@ -22,4 +22,22 @@ class PermissionService extends BaseService
         }
         return $createdObject;
     }
+
+    public function getPermissionByModels($model)
+    {
+        $array = $this->model->where('name', 'like', '%' . $model . '%')->get();
+        return $array;
+    }
+
+    public function getPermissionNotInModels($models)
+    {
+        $data = $this->model->whereIn('name', 'not like', collect($models)->map(function ($data){
+            $model = [
+                '%'.$data.'%'
+            ];
+            return $model;
+        }));
+
+        return $data;
+    }
 }

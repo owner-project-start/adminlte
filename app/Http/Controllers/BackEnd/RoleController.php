@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use mysql_xdevapi\Collection;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
@@ -38,7 +39,7 @@ class RoleController extends ParentController
      */
     public function index()
     {
-        return view('pages.roles.index');
+        return view('pages.assessments.roles.index');
     }
 
     /**
@@ -87,12 +88,24 @@ class RoleController extends ParentController
     }
 
     /**
-     * @return Factory|View
+     * @return array
      */
     public function create()
     {
+//        $permissions[0] = [
+//            'Models' => 'Other',
+//            'permissions' => $this->permission->getPermissionNotInModels(Models())
+//        ];
+//        foreach (Models() as $key => $model) {
+//            $permissions[$key + 1] = [
+//                'Models' => $model,
+//                'permissions' => $this->permission->getPermissionByModels($model)
+//            ];
+//        }
+//        return $permissions;
+
         $permissions = $this->permission->all();
-        return view('pages.roles.create', compact('permissions'));
+        return view('pages.assessments.roles.create', compact('permissions'));
     }
 
     /**
@@ -130,7 +143,7 @@ class RoleController extends ParentController
         $role = $this->service->getById($id);
         // try to get all permission
         $permissions = $this->permission->all();
-        return view('pages.roles.edit', compact('role', 'permissions'));
+        return view('pages.assessments.roles.edit', compact('role', 'permissions'));
     }
 
     /**

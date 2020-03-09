@@ -1,18 +1,18 @@
 @extends('layouts.master')
 
-@section('title', 'Permission')
+@section('title', 'Users')
 
 @section('header')
     <div class="row mb-2">
-        <div class="col-md-6 col-sm-6 col-7">
-            <h1 class="m-0 text-dark">Permission Managements</h1>
+        <div class="col-md-6 col-sm-6 col-6">
+            <h1 class="m-0 text-dark">User Managements</h1>
         </div>
-        <div class="col-md-6 col-sm-6 col-5">
+        <div class="col-md-6 col-sm-6 col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item">
-                    @can('create-permissions')
-                        <a href="{{ route('permissions.create') }}" class="btn btn-sm btn-primary"><i
-                                class="fas fa-plus-circle"></i> Permission</a>
+                    @can('create-users')
+                        <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary"><i
+                                class="fas fa-plus-circle"></i> User</a>
                     @endcan
                 </li>
             </ol>
@@ -26,7 +26,7 @@
             <div class="table-responsive">
                 <table class="table table-sm table-bordered table-hover w-100" id="users_table">
                     <thead>
-                    @include('pages.permissions.partials.field')
+                    @include('pages.assessments.users.partials.field')
                     </thead>
                 </table>
             </div>
@@ -51,13 +51,13 @@
                 ],
                 pageLength: 10,
                 ajax: {
-                    url: '{{ route('get.permissions') }}',
+                    url: '{{ route('get.users') }}',
                     type: "GET"
                 },
                 columns: [
-                    {data: 'name'},
-                    {data: 'code', orderable: false, searchable: false},
-                    {data: 'roles', name: 'roles.name', orderable: false,},
+                    {data: 'name',},
+                    {data: 'email',},
+                    {data: 'roles', name: 'roles.name', orderable: false},
                     {data: 'created_at', orderable: false, searchable: false},
                     {data: 'updated_at', orderable: false, searchable: false},
                     {data: 'action', orderable: false, searchable: false}
@@ -67,7 +67,7 @@
                         createdCell: function (td) {
                             $(td).attr('nowrap', true);
                         },
-                        "targets": [0,1,5]
+                        "targets": [5]
                     },
                 ]
             });
