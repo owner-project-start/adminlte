@@ -28,10 +28,10 @@
                     <a class="nav-link" href="#change-password" id="change-password-tab" data-toggle="tab"
                        role="tab" aria-controls="change-password" aria-selected="true">Change Password</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#change-avatar" id="change-avatar-tab" data-toggle="tab"
-                       role="tab" aria-controls="change-avatar" aria-selected="true">Change Profile</a>
-                </li>
+                {{--<li class="nav-item">--}}
+                {{--<a class="nav-link" href="#change-avatar" id="change-avatar-tab" data-toggle="tab"--}}
+                {{--role="tab" aria-controls="change-avatar" aria-selected="true">Change Profile</a>--}}
+                {{--</li>--}}
             </ul>
         </div>
         <div class="card-body">
@@ -59,25 +59,25 @@
                 <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="change-passwordc-tab">
                     @include('pages.profile.partials.password')
                 </div>
-                <div class="tab-pane fade" id="change-avatar" role="tabpanel" aria-labelledby="change-avatar-tab">
-                    <div class="row">
-                        <div class="col-md-12 d-flex justify-content-center">
-                            <div class="card m-0">
-                                <img src="{{ asset(auth()->user()->avatar) }}"
-                                     class="card-img img-thumbnail" alt="" id="avatar">
-                                <div class="card-img-overlay d-flex flex-column">
-                                    <h3 class="card-title link-muted text-capitalize">{{ auth()->user()->name }}</h3>
-                                    <button type="button" id="changeImage"
-                                            class="mt-auto btn btn-sm btn-x-sm btn-block btn-secondary">
-                                        <i class="fas fa-image"></i> Change Image
-                                    </button>
-                                </div>
-                                <input type="file" class="item-img file center-block" id="image" name="file_photo"
-                                       style="display:none;"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {{--<div class="tab-pane fade" id="change-avatar" role="tabpanel" aria-labelledby="change-avatar-tab">--}}
+                {{--<div class="row">--}}
+                {{--<div class="col-md-12 d-flex justify-content-center">--}}
+                {{--<div class="card m-0">--}}
+                {{--<img src="{{ asset(auth()->user()->avatar) }}"--}}
+                {{--class="card-img img-thumbnail" alt="" id="avatar">--}}
+                {{--<div class="card-img-overlay d-flex flex-column">--}}
+                {{--<h3 class="card-title link-muted text-capitalize">{{ auth()->user()->name }}</h3>--}}
+                {{--<button type="button" id="changeImage"--}}
+                {{--class="mt-auto btn btn-sm btn-x-sm btn-block btn-secondary">--}}
+                {{--<i class="fas fa-image"></i> Change Image--}}
+                {{--</button>--}}
+                {{--</div>--}}
+                {{--<input type="file" class="item-img file center-block" id="image" name="file_photo"--}}
+                {{--style="display:none;"/>--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--</div>--}}
             </div>
         </div>
         <div class="card-footer text-muted text-center">
@@ -106,7 +106,6 @@
             </div>
         </div>
     </div>
-    </div>
 @endsection
 
 @push('scripts')
@@ -120,6 +119,7 @@
         });
     </script>
     <script src="{{ asset('js/changePassword.js') }}"></script>
+    <script src="{{ asset('js/uploadImage.js') }}"></script>
     <script>
         $('.update-info').on('click', function () {
             $.ajax({
@@ -147,84 +147,4 @@
         });
     </script>
 
-    <script>
-        var $uploadCrop,
-            tempFilename,
-            rawImg,
-            imageId;
-
-        $("#changeImage").on('click', function (e) {
-            $('.item-img').trigger('click');
-        });
-
-        function readFile(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('.upload-demo').addClass('ready');
-                    $('#cropImagePop').modal('show');
-                    rawImg = e.target.result;
-                };
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                swal("Sorry - you're browser doesn't support the FileReader API");
-            }
-        }
-
-        $uploadCrop = $('#upload-demo').croppie({
-            viewport: {
-                width: 175,
-                height: 175,
-            },
-            enforceBoundary: false,
-            enableExif: true
-        });
-        $('#cropImagePop').on('shown.bs.modal', function () {
-            // alert('Shown pop');
-            $uploadCrop.croppie('bind', {
-                url: rawImg
-            }).then(function () {
-                console.log('jQuery bind complete');
-            });
-        });
-
-        $('.item-img').on('change', function (e) {
-            const extension = $('#image').val().split('.').pop().toLowerCase();
-            if (/^(jpg|jpeg|png|gif|bmp)$/.test(extension)) {
-                imageId = $(this).data('id');
-                tempFilename = $(this).val();
-                $('#cancelCropBtn').data('id', imageId);
-                readFile(this);
-            } else {
-                toastr.warning('Please input file image.');
-            }
-            // imageId = $(this).data('id');
-            // tempFilename = $(this).val();
-            // $('#cancelCropBtn').data('id', imageId);
-            // readFile(this);
-        });
-        $('#cropImageBtn').on('click', function (ev) {
-            $uploadCrop.croppie('result', {
-                type: 'base64',
-                format: 'jpeg',
-                size: {width: 200, height: 200}
-            }).then(function (resp) {
-                $('#avatar').attr('src', resp);
-                $('.nav-avatar').attr('src', resp);
-                $('#cropImagePop').modal('hide');
-                $.ajax({
-                    url: $('#cropImageBtn').attr('data-remote'),
-                    type: 'PUT',
-                    data: {
-                        avatar: resp
-                    },
-                    success: (response) => {
-                        if (response.code === 202) {
-                            toastr.success(response.message);
-                        }
-                    }
-                })
-            });
-        });
-    </script>
 @endpush
