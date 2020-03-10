@@ -39,7 +39,7 @@
                 <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                     <div class="row">
                         <div class="col-md-12 d-flex justify-content-center">
-                            <div class="card">
+                            <div class="card" style="width: 175px">
                                 <img src="{{ asset(auth()->user()->avatar) }}"
                                      class="card-img img-thumbnail" alt="" id="avatar">
                                 <div class="card-img-overlay d-flex flex-column">

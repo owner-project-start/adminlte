@@ -38,4 +38,9 @@
 @endsection
 
 @push('scripts')
+    <script>
+        $(function(){
+            $("ul.checktree").checktree();
+        });
+    </script>
 @endpush

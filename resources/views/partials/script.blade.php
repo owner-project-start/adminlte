@@ -36,3 +36,4 @@
 <script src="{{ asset('node_modules/croppie/croppie.min.js') }}"></script>
 @toastr_js
 @toastr_render
+<script src="{{ asset('js/checktree.js') }}"></script>

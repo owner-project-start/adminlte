@@ -25,19 +25,33 @@ class PermissionService extends BaseService
 
     public function getPermissionByModels($model)
     {
-        $array = $this->model->where('name', 'like', '%' . $model . '%')->get();
+        $array = $this->model->where('name', 'like', ["%$model%"])->get();
         return $array;
     }
 
-    public function getPermissionNotInModels($models)
+    public function getOtherPermission($models)
     {
-        $data = $this->model->whereIn('name', 'not like', collect($models)->map(function ($data){
-            $model = [
-                '%'.$data.'%'
-            ];
-            return $model;
-        }));
+        $array = $this->model->where(function ($query) use ($models) {
+            foreach ($models as $model) {
+                $query->Where('name', 'not like', '%' . $model . '%');
+            }
+        })->get();
+        return $array;
+    }
 
-        return $data;
+    public function getPermissionFormat()
+    {
+        foreach (Models() as $key => $model) {
+            $models[$key] = [
+                'model' => $model,
+                'permissions' => $this->getPermissionByModels($model)
+            ];
+        }
+        $models[count($models) + 1] = [
+            'model' => 'Other',
+            'permissions' => $this->getOtherPermission(Models())
+        ];
+
+        return $models;
     }
 }

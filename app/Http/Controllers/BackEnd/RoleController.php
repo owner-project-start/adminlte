@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
-use mysql_xdevapi\Collection;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
@@ -92,20 +91,10 @@ class RoleController extends ParentController
      */
     public function create()
     {
-//        $permissions[0] = [
-//            'Models' => 'Other',
-//            'permissions' => $this->permission->getPermissionNotInModels(Models())
-//        ];
-//        foreach (Models() as $key => $model) {
-//            $permissions[$key + 1] = [
-//                'Models' => $model,
-//                'permissions' => $this->permission->getPermissionByModels($model)
-//            ];
-//        }
-//        return $permissions;
-
-        $permissions = $this->permission->all();
-        return view('pages.assessments.roles.create', compact('permissions'));
+        $models = $this->permission->getPermissionFormat();
+        return view('pages.assessments.roles.create'
+            , compact('models')
+        );
     }
 
     /**
@@ -142,8 +131,8 @@ class RoleController extends ParentController
         // try to find record
         $role = $this->service->getById($id);
         // try to get all permission
-        $permissions = $this->permission->all();
-        return view('pages.assessments.roles.edit', compact('role', 'permissions'));
+        $models = $this->permission->getPermissionFormat();
+        return view('pages.assessments.roles.edit', compact('role', 'models'));
     }
 
     /**
@@ -156,7 +145,7 @@ class RoleController extends ParentController
     {
         if ($id) {
             $this->validate($request, [
-                'name' => 'required|min:4|unique:roles,name,'.$id
+                'name' => 'required|min:4|unique:roles,name,' . $id
             ]);
             $updatedObject = $this->service->updateRole($id, $request);
             if ($updatedObject) {
