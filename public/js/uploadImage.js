@@ -30,7 +30,6 @@ $uploadCrop = $('#upload-demo').croppie({
     enableExif: true
 });
 $('#cropImagePop').on('shown.bs.modal', function () {
-    // alert('Shown pop');
     $uploadCrop.croppie('bind', {
         url: rawImg
     }).then(function () {
@@ -48,10 +47,6 @@ $('.item-img').on('change', function (e) {
     } else {
         toastr.warning('Please input file image.');
     }
-    // imageId = $(this).data('id');
-    // tempFilename = $(this).val();
-    // $('#cancelCropBtn').data('id', imageId);
-    // readFile(this);
 });
 $('#cropImageBtn').on('click', function (ev) {
     $uploadCrop.croppie('result', {
@@ -61,7 +56,6 @@ $('#cropImageBtn').on('click', function (ev) {
     }).then(function (resp) {
         $('#avatar').attr('src', resp);
         $('.nav-avatar').attr('src', resp);
-        $('#cropImagePop').modal('hide');
         $.ajax({
             url: $('#cropImageBtn').attr('data-remote'),
             type: 'PUT',
@@ -70,6 +64,7 @@ $('#cropImageBtn').on('click', function (ev) {
             },
             success: (response) => {
                 if (response.code === 202) {
+                    $('#cropImagePop').modal('hide');
                     toastr.success(response.message);
                 }
             }
