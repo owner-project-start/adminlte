@@ -47,6 +47,7 @@ body {
 
 ul.checktree {
     list-style-type: none;
+    padding-inline-start: 0
 }
 
 .checktree ul {
@@ -74,3 +75,26 @@ ul.checktree li:last-child {
     border-left: none;
 }
 
+@media (min-width: 576px) {
+    .card-columns {
+        column-count: 1;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-columns {
+        column-count: 1;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-columns {
+        column-count: 1;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-columns {
+        column-count: 2;
+    }
+}

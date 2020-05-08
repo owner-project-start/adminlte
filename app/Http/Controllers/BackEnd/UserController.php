@@ -113,9 +113,6 @@ class UserController extends ParentController
                 if (isset($request->roles)) {
                     $roles = $this->role->getByArray('id', $request->roles);
                     $createdObject->assignRole($roles);
-                } else {
-                    DB::rollBack();
-                    return error();
                 }
                 DB::commit();
                 toastSuccess('Record has been saved successfully!');

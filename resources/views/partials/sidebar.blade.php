@@ -16,32 +16,26 @@
                     </a>
                 </li>
                 <li class="nav-header">Access Management</li>
-                <li class="nav-item has-treeview {{ (request()->is('user-management*')) ? 'menu-open' : '' }}">
-                    <a href="javascript:void(0)" class="nav-link {{ (request()->is('user-management*')) ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>Users Management</p>
-                        <i class="fas fa-angle-left right"></i>
+                <li class="nav-item">
+                    <a href="{{ route('users') }}"
+                       class="nav-link {{ (request()->is('user-managements/users*')) ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Users</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('users') }}" class="nav-link {{ (request()->is('user-managements/users*')) ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Users</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('roles') }}" class="nav-link {{ (request()->is('user-managements/roles*')) ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Roles</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('permissions') }}" class="nav-link {{ (request()->is('user-managements/permissions*')) ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Permissions</p>
-                            </a>
-                        </li>
-                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('roles') }}"
+                       class="nav-link {{ (request()->is('user-managements/roles*')) ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Roles</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('permissions') }}"
+                       class="nav-link {{ (request()->is('user-managements/permissions*')) ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Permissions</p>
+                    </a>
                 </li>
             </ul>
         </nav>

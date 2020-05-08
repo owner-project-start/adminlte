@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackEnd;
 use App\Http\Controllers\Controller;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ParentController extends Controller
 {
@@ -23,6 +24,9 @@ class ParentController extends Controller
         // 1. Check validation
         $this->validate($request, $this->model->rulesToCreate);
         $attributes = $request->all();
+        if(isset($attributes->password)){
+            $attributes->password = Hash::make($attributes->password);
+        }
         // 2. Try to create the records
         $createdObject = $this->service->create($attributes);
         // 3. If everything is fine, response success to user
