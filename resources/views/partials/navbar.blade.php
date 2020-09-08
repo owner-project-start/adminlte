@@ -91,7 +91,7 @@
                              alt="">
                     @else
                         <i class="fa fa-language"></i>
-                        {{ trans('nav.languages') }}
+{{--                        {{ trans('nav.languages') }}--}}
                     @endif
                 </div>
             </a>
