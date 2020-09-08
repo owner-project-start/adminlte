@@ -23,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $languages = [
+            'km',
+            'en'
+        ];
+        view()->share('languages', $languages);
         require base_path('app/Responses/ResponseMacro.php');
     }
 }

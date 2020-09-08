@@ -1,6 +1,5 @@
-<th>Name</th>
-<th>Code</th>
-<th>Roles</th>
-<th>Create_At</th>
-<th>Update_At</th>
-<th>Actions</th>
+<th>{{ trans('table.head.name') }}</th>
+<th>{{ trans('table.head.code') }}</th>
+<th>{{ trans('table.head.roles') }}</th>
+<th>{{ trans('table.head.created_at') }}</th>
+<th>{{ trans('table.head.actions') }}</th>

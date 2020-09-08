@@ -5,14 +5,14 @@
 @section('header')
     <div class="row mb-2">
         <div class="col-md-6 col-sm-6 col-6">
-            <h1 class="m-0 text-dark">User Managements</h1>
+            <h1 class="m-0 text-dark">{{ trans('header.user_managements') }}</h1>
         </div>
         <div class="col-md-6 col-sm-6 col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item">
                     @can('create-users')
                         <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary"><i
-                                class="fas fa-plus-circle"></i> User</a>
+                                class="fas fa-plus-circle"></i> {{ trans('button.add.user') }}</a>
                     @endcan
                 </li>
             </ol>
@@ -45,6 +45,9 @@
             const Table = $('#users_table').DataTable({
                 processing: false,
                 serverSide: true,
+                language: {
+                    search: "{{ trans('label.search') }}"
+                },
                 lengthMenu: [
                     [10, 25, 50, 100],
                     [10, 25, 50, 100]
@@ -59,7 +62,6 @@
                     {data: 'email',},
                     {data: 'roles', name: 'roles.name', orderable: false},
                     {data: 'created_at', orderable: false, searchable: false},
-                    {data: 'updated_at', orderable: false, searchable: false},
                     {data: 'action', orderable: false, searchable: false}
                 ],
                 columnDefs: [
@@ -67,7 +69,7 @@
                         createdCell: function (td) {
                             $(td).attr('nowrap', true);
                         },
-                        "targets": [5]
+                        "targets": [3, 4]
                     },
                 ]
             });

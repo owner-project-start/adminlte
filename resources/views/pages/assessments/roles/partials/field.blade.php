@@ -1,8 +1,7 @@
 <tr>
-    <th>Name</th>
-    <th>Code</th>
-    <th>Permission</th>
-    <th>Created_At</th>
-    <th>Updated_At</th>
-    <th>Actions</th>
+    <th>{{ trans('table.head.name') }}</th>
+    <th>{{ trans('table.head.code') }}</th>
+    <th>{{ trans('table.head.permissions') }}</th>
+    <th>{{ trans('table.head.created_at') }}</th>
+    <th>{{ trans('table.head.actions') }}</th>
 </tr>

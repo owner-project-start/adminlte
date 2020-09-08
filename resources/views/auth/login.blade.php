@@ -10,7 +10,7 @@
                    value="{{ old('email') }}" placeholder="E-mail" required autocomplete="email" autofocus>
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-envelope"></span>
+                    <i class="fas fa-envelope"></i>
                 </div>
             </div>
             @error('email')
@@ -24,7 +24,7 @@
                    name="password" placeholder="Password" required autocomplete="current-password">
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
+                    <i class="fas fa-lock"></i>
                 </div>
             </div>
             @error('password')

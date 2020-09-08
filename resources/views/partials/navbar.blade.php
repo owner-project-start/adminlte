@@ -18,7 +18,7 @@
 {{--        </div>--}}
 {{--    </form>--}}
 
-    <!-- Right navbar links -->
+<!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
@@ -82,19 +82,28 @@
             </div>
         </li>
         <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-bell"></i>
-                {{ trans('lang.en') }}
+        <li class="nav-item dropdown align-self-center">
+            <a data-toggle="dropdown" href="#" class="nav-link px-0">
+                <div class="px-2 pb-1">
+                    @if(session()->get('locale'))
+                        <img class="brand-image img-circle elevation-3 nav-avatar"
+                             src="{{ asset('img/country-icons/'.session()->get('locale').'.png') }}" height="18px"
+                             alt="">
+                    @else
+                        <i class="fa fa-language"></i>
+                        {{ trans('nav.languages') }}
+                    @endif
+                </div>
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <a href="{{ url('lang/en') }}" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> {{ trans('lang.en') }}
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="{{ url('lang/km') }}" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> {{ trans('lang.km') }}
-                </a>
+            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right p-0">
+                @foreach($languages as $lang)
+                    @if(session()->get('locale') !== $lang)
+                        <a href="{{ url('lang/'.$lang) }}" class="dropdown-item px-2 pt-2 pb-2">
+                            <img src="{{ asset('img/country-icons/'.$lang.'.png') }}" height="22px" alt="">
+                            {{ trans('lang.'.$lang) }}
+                        </a>
+                    @endif
+                @endforeach
             </div>
         </li>
         <li class="nav-item dropdown">
@@ -113,7 +122,7 @@
                 <a class="dropdown-item p-0" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                    document.getElementById('logout-form').submit();">
-                    <span class="dropdown-item dropdown-header text-capitalize">{{ __('Logout') }}</span>
+                    <span class="dropdown-item dropdown-header text-capitalize">{{ trans('auth.logout') }}</span>
                 </a>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

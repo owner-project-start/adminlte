@@ -5,7 +5,7 @@
 @section('header')
     <div class="row">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
+            <h1 class="m-0 text-dark">{{ trans('header.dashboard') }}</h1>
         </div>
     </div>
 @endsection

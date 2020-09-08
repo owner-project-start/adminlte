@@ -8,9 +8,6 @@ return [
         'users' => 'Users',
         'roles' => 'Roles',
         'permissions' => 'Permissions',
-        'user_managements' => 'User Managements',
-        'role_managements' => 'Role Managements',
-        'permission_managements' => 'Permission Managements'
     ],
 
     'header' => [

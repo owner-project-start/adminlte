@@ -5,14 +5,14 @@
 @section('header')
     <div class="row mb-2">
         <div class="col-md-6 col-sm-6 col-7">
-            <h1 class="m-0 text-dark">Permission Managements</h1>
+            <h1 class="m-0 text-dark">{{ trans('header.permission_managements') }}</h1>
         </div>
         <div class="col-md-6 col-sm-6 col-5">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item">
                     @can('create-permissions')
                         <a href="{{ route('permissions.create') }}" class="btn btn-sm btn-primary"><i
-                                class="fas fa-plus-circle"></i> Permission</a>
+                                class="fas fa-plus-circle"></i> {{ trans('button.add.permission') }}</a>
                     @endcan
                 </li>
             </ol>
@@ -45,6 +45,9 @@
             const Table = $('#users_table').DataTable({
                 processing: false,
                 serverSide: true,
+                language: {
+                    search: "{{ trans('label.search') }}"
+                },
                 lengthMenu: [
                     [10, 25, 50, 100],
                     [10, 25, 50, 100]
@@ -59,7 +62,6 @@
                     {data: 'code', orderable: false, searchable: false},
                     {data: 'roles', name: 'roles.name', orderable: false,},
                     {data: 'created_at', orderable: false, searchable: false},
-                    {data: 'updated_at', orderable: false, searchable: false},
                     {data: 'action', orderable: false, searchable: false}
                 ],
                 columnDefs: [
@@ -67,7 +69,7 @@
                         createdCell: function (td) {
                             $(td).attr('nowrap', true);
                         },
-                        "targets": [0,1,5]
+                        "targets": [0,1,3,4]
                     },
                 ]
             });

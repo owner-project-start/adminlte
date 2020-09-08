@@ -5,15 +5,15 @@
 @section('header')
     <div class="row mb-2">
         <div class="col-md-6 col-sm-6 col-6">
-            <a class="btn btn-sm btn-info" href="{{ route('roles') }}">Back</a>
+            <a class="btn btn-sm btn-info" href="{{ route('roles') }}">{{ trans('button.back') }}</a>
             <a class="btn btn-sm btn-primary" href="{{ route('roles.create') }}">
-                <i class="fas fa-plus-circle"></i> Roles
+                <i class="fas fa-plus-circle"></i> {{ trans('button.add.role') }}
             </a>
         </div>
         <div class="col-md-6 col-sm-6 col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('roles') }}">Roles</a></li>
-                <li class="breadcrumb-item active">Edit</li>
+                <li class="breadcrumb-item"><a href="{{ route('roles') }}">{{ trans('header.breadcrumb.roles') }}</a></li>
+                <li class="breadcrumb-item active">{{ trans('header.breadcrumb.edit') }}</li>
             </ol>
         </div>
     </div>
@@ -28,8 +28,8 @@
                 @include('pages.assessments.roles.partials.form')
                 <div class="row justify-content-end">
                     <div class="col-md-10 col-sm-9 col-8">
-                        <button type="submit" class="btn btn-sm btn-primary">Update</button>
-                        <a class="btn btn-sm btn-warning" href="{{ route('users') }}">Cancel</a>
+                        <button type="submit" class="btn btn-sm btn-primary">{{ trans('button.update') }}</button>
+                        <a class="btn btn-sm btn-warning" href="{{ route('roles') }}">{{ trans('button.cancel') }}</a>
                     </div>
                 </div>
             </form>
