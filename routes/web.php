@@ -14,6 +14,8 @@
 require __DIR__ . '/Web/auth.php';
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/lang/{local}', 'LocalizationController@index')->name('lang');
+Route::get('/welcome', 'HomeController@welcome')->name('welcome');
 
 Route::group(['middleware' => ['auth', 'permission:backend']], function () {
     require __DIR__ . '/Web/dashboard.php';

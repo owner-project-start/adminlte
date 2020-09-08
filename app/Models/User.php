@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticate;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticate
 {
-    use SoftDeletes, Notifiable, HasRoles;
+    use SoftDeletes, Notifiable, HasRoles, LogsActivity;
     protected $table = 'users';
     protected $fillable = [
         'name', 'email', 'password', 'avatar', 'active'
