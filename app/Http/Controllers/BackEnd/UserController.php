@@ -51,7 +51,7 @@ class UserController extends ParentController
     public function getData()
     {
         // select users field
-        $users = $this->service->getSelectWithRelation(['id', 'name', 'email', 'created_at', 'updated_at'], 'roles');
+        $users = $this->service->getSelect(['id', 'name', 'email', 'created_at', 'updated_at']);
         // return data tables with field selected
         return DataTables::of($users)
             ->editColumn('name', function ($user) {
@@ -65,12 +65,6 @@ class UserController extends ParentController
             })
             ->filterColumn('roles', function ($query, $keyword) {
                 $query->whereRaw("roles like ?", ["%$keyword%"]);
-            })
-            ->editColumn('created_at', function ($role) {
-                return Carbon::parse($role->created_at)->format('M-d-Y');
-            })
-            ->editColumn('updated_at', function ($role) {
-                return Carbon::parse($role->created_at)->format('M-d-Y');
             })
             ->addColumn('action', function ($user) {
                 $action = "";
@@ -86,7 +80,6 @@ class UserController extends ParentController
                 return $action;
             })
             ->orderColumn('created_at', '-created_at')
-            ->orderByNullsLast()
             ->rawColumns(['name', 'roles', 'action'])
             ->make(true);
     }

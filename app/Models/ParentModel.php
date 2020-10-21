@@ -14,6 +14,13 @@ class ParentModel extends Model
     public $rulesToUpdate = [];
     public $rulesToDelete = [];
 
+    protected $casts = [
+        'created_at' => 'date:M-d-Y',
+        'updated_at' => 'date:M-d-Y',
+        'dob' => 'date:M-d-Y',
+        'date' => 'date:M-d-Y',
+    ];
+
     /* Overriding functions*/
     public static function boot()
     {

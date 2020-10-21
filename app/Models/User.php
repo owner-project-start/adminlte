@@ -20,6 +20,8 @@ class User extends Authenticate
         'password', 'remember_token',
     ];
     protected $casts = [
+        'created_at' => 'date:d-M-Y',
+        'updated_at' => 'date:d-M-Y',
         'email_verified_at' => 'datetime',
     ];
 

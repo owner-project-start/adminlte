@@ -43,16 +43,16 @@
                 }
             });
             const Table = $('#users_table').DataTable({
-                processing: false,
+                processing: true,
                 serverSide: true,
                 language: {
                     search: "{{ trans('label.search') }}"
                 },
                 lengthMenu: [
-                    [10, 25, 50, 100],
-                    [10, 25, 50, 100]
+                    [50, 100, 250, 500],
+                    [50, 100, 250, 500]
                 ],
-                pageLength: 10,
+                pageLength: 50,
                 ajax: {
                     url: '{{ route('get.users') }}',
                     type: "GET"

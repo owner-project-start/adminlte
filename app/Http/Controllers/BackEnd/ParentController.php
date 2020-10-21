@@ -24,6 +24,9 @@ class ParentController extends Controller
         // 1. Check validation
         $this->validate($request, $this->model->rulesToCreate);
         $attributes = $request->all();
+        if (isset($attributes['password'])) {
+            $attributes['password'] = Hash::make($attributes['password']);
+        }
         if(isset($attributes->password)){
             $attributes->password = Hash::make($attributes->password);
         }
