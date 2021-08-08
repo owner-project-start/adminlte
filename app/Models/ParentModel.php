@@ -40,7 +40,7 @@ class ParentModel extends Model
     public static function create(array $attributes = [])
     {
         $attributes["created_at"] = Carbon::now();
-//        $attributes["create_uid"] = 1;
+//        $attributes["create_uid"] = auth()->user()->id;
         $model = static::query()->create($attributes);
         return $model;
     }

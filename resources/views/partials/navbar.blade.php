@@ -5,7 +5,6 @@
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
     </ul>
-
     <!-- SEARCH FORM -->
 {{--    <form class="form-inline ml-3">--}}
 {{--        <div class="input-group input-group-sm">--}}
@@ -91,7 +90,6 @@
                              alt="">
                     @else
                         <i class="fa fa-language"></i>
-{{--                        {{ trans('nav.languages') }}--}}
                     @endif
                 </div>
             </a>
@@ -106,6 +104,7 @@
                 @endforeach
             </div>
         </li>
+
         <li class="nav-item dropdown">
             <a class="" data-toggle="dropdown" href="#">
                 <div class="px-2">

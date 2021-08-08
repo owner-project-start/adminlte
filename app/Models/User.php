@@ -19,6 +19,7 @@ class User extends Authenticate
     protected $hidden = [
         'password', 'remember_token',
     ];
+
     protected $casts = [
         'created_at' => 'date:d-M-Y',
         'updated_at' => 'date:d-M-Y',

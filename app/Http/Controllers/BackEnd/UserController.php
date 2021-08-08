@@ -58,10 +58,9 @@ class UserController extends ParentController
                 return '<span class="text-capitalize">' . $user->name . '</span>';
             })
             ->addColumn('roles', function ($user) {
-                $roleName = $user->roles->map(function ($role) {
+                return $user->roles->map(function ($role) {
                     return '<span class="badge badge-success text-capitalize">' . $role->name . '</span>';
                 })->implode(' ');
-                return $roleName;
             })
             ->filterColumn('roles', function ($query, $keyword) {
                 $query->whereRaw("roles like ?", ["%$keyword%"]);
@@ -79,7 +78,6 @@ class UserController extends ParentController
                 }
                 return $action;
             })
-            ->orderColumn('created_at', '-created_at')
             ->rawColumns(['name', 'roles', 'action'])
             ->make(true);
     }
